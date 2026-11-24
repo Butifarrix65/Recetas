@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>El recetario de Rosa</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{--bg:#faf8f3;--card:#fff;--ink:#2a2622;--mute:#7b7468;--line:#e9e3d6;--acc:#ef8b00;--acc-ink:#fff;--leaf:#3f7d4e;--sand:#f1ebdd;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1a17;--card:#27241f;--ink:#f3eee4;--mute:#a69f90;--line:#3a352d;--sand:#322e26;--leaf:#79b987}}
+:root[data-theme="dark"]{--bg:#1c1a17;--card:#27241f;--ink:#f3eee4;--mute:#a69f90;--line:#3a352d;--sand:#322e26;--leaf:#79b987}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 28px 60px}
+header{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+header h1{font-size:34px;flex:1 1 auto}
+.search{flex:1 1 320px;max-width:460px;padding:13px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--card)}
+.btn{background:var(--acc);color:var(--acc-ink);padding:12px 22px;border-radius:999px;font-weight:800}
+.btn.ghost{background:var(--sand);color:var(--ink)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px}
+.chip{padding:8px 18px;border-radius:999px;background:var(--sand);font-weight:700;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px}
+.card{background:var(--card);border-radius:18px;overflow:hidden;text-align:left;border:1px solid var(--line);display:block;width:100%}
+.cover{aspect-ratio:16/10;background:var(--sand) center/cover;display:grid;place-items:center;font-size:52px;position:relative}
+.card .b{padding:12px 16px 16px}
+.card h3{font-size:20px}
+.meta{color:var(--mute);font-size:14px;font-weight:600}
+.heart{position:absolute;top:10px;right:10px;background:var(--card);border-radius:50%;width:40px;height:40px;font-size:20px;display:grid;place-items:center}
+.empty{text-align:center;color:var(--mute);padding:70px 0}
+.detail{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:36px;align-items:start}
+@media(max-width:820px){.detail{grid-template-columns:1fr}}
+.detail .cover{border-radius:22px;aspect-ratio:4/3;font-size:90px}
+.detail h2{font-size:40px;margin:6px 0 8px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.serv{display:inline-flex;align-items:center;gap:6px;background:var(--sand);border-radius:999px;padding:4px}
+.serv button{width:38px;height:38px;border-radius:50%;background:var(--card);font-size:22px;font-weight:800}
+.serv span{min-width:96px;text-align:center;font-weight:700}
+.ing{list-style:none;padding:0;margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px}
+.ing li{padding:12px 18px;border-bottom:1px solid var(--line)}
+.ing li:last-child{border:0}
+.ing label{display:flex;gap:12px;align-items:center;cursor:pointer}
+.ing input{width:22px;height:22px;accent-color:var(--leaf)}
+.ing input:checked+span{text-decoration:line-through;color:var(--mute)}
+.steps{padding:0;margin:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line);max-width:68ch}
+.steps li::before{content:counter(s);width:36px;height:36px;border-radius:50%;background:var(--leaf);color:#fff;display:grid;place-items:center;font-weight:800}
+h3.s{font-size:24px;margin:28px 0 12px}
+.back{margin-bottom:16px}
+form{max-width:760px}
+label.f{display:block;font-weight:800;margin:16px 0 6px}
+.in{width:100%;padding:12px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--card)}
+textarea.in{min-height:150px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hint{color:var(--mute);font-size:14px;margin:4px 0 0}
+.actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.danger{color:#c0392b}
+.cook{max-width:900px;margin:0 auto}
+.cbar{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.prog{height:8px;background:var(--sand);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--leaf)}
+.big{font:600 clamp(28px,4.4vw,44px)/1.3 Fraunces,Georgia,serif;margin:36px 0;min-height:5em}
+.tbox{background:var(--sand);border-radius:20px;padding:18px 22px;text-align:center}
+.tnum{font:800 56px/1 Nunito,sans-serif;font-variant-numeric:tabular-nums;margin-bottom:12px}
+.tbox .actions{justify-content:center;margin-top:0}
+.nav{display:flex;justify-content:space-between;margin:24px 0}
+.nav .btn{font-size:22px;padding:18px 34px}
+.btn:disabled{opacity:.4}
+.ci{margin-top:10px}.ci summary{font-weight:800;cursor:pointer}
+.addrow{display:flex;gap:10px}
+.hero{text-align:center;padding:30px 0 10px}.hero h1{font-size:44px}.hero p{color:var(--mute);margin:8px 0 0}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:34px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:34px 22px;text-align:center}
+.mcard:hover{border-color:var(--acc)}
+.mcard .e{font-size:76px;line-height:1}.mcard h2{font-size:28px;margin:14px 0 6px}.mcard p{margin:0;color:var(--mute);font-weight:600}
+@media print{header,.back,.actions,.serv button{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const KEY='recetario:v1';
+const CATS=['Entrantes','Platos principales','Postres','Sopas y cremas','Desayunos'];
+const seed=[
+{id:'s1',title:'Tortilla de patatas',desc:'Jugosa por dentro, dorada por fuera. La de toda la vida.',emoji:'🥔',cat:'Platos principales',time:45,serv:4,fav:true,
+ ings:['5 patatas medianas','6 huevos','1 cebolla','200 ml aceite de oliva','Sal'],
+ steps:['Pela y corta las patatas en láminas finas y la cebolla en juliana.','Fríe las patatas y la cebolla a fuego medio unos 20 minutos, sin que se doren.','Escurre y mézclalas con los huevos batidos y sal. Déjalo reposar 5 minutos.','Cuaja la mezcla en una sartén con un poco de aceite, dale la vuelta con un plato y termina 2 minutos más.']},
+{id:'s2',title:'Pisto manchego',desc:'Verduras pochadas a fuego lento, perfectas con un huevo frito.',emoji:'🍅',cat:'Entrantes',time:50,serv:4,fav:false,
+ ings:['4 tomates maduros','2 calabacines','1 pimiento verde','1 pimiento rojo','1 cebolla','3 cucharadas de aceite de oliva','Sal y una pizca de azúcar'],
+ steps:['Corta todas las verduras en dados pequeños.','Pocha la cebolla y los pimientos en aceite durante 10 minutos.','Añade el calabacín y cocina 10 minutos más.','Incorpora el tomate, sal y azúcar. Cocina a fuego bajo 25 minutos, hasta que espese.']},
+{id:'s3',title:'Gazpacho andaluz',desc:'Frío, fresco y listo en 10 minutos.',emoji:'🥣',cat:'Sopas y cremas',time:10,serv:4,fav:false,
+ ings:['1 kg tomates maduros','1 pepino','1 pimiento verde','1 diente de ajo','50 ml aceite de oliva','2 cucharadas de vinagre','Sal'],
+ steps:['Trocea las verduras y tritúralas con el ajo.','Añade aceite, vinagre y sal, y vuelve a triturar.','Pásalo por un colador y enfría al menos 2 horas.']}
+];
+let S={recipes:[],q:'',cat:'Todas',fav:false,view:'home',id:null,mult:null,checked:{},step:0,list:[],top:false,m:null};
+try{const r=JSON.parse(localStorage.getItem(KEY));S.recipes=Array.isArray(r)&&r.length?r:seed}catch(e){S.recipes=seed}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S.recipes))}catch(e){alert('No se ha podido guardar (¿foto demasiado grande?).')}};
+try{const l=JSON.parse(localStorage.getItem('recetario:lista'));if(Array.isArray(l))S.list=l}catch(e){}
+const saveList=()=>{try{localStorage.setItem('recetario:lista',JSON.stringify(S.list))}catch(e){}};
+const METHODS={mano:{n:'A mano',e:'✋',d:'Recetas que cocinas tú mismo, con tus manos'},olla:{n:'Olla GM',e:'🍲',d:'Recetas para tu olla programable GM'},thermo:{n:'Thermomix',e:'🥣',d:'Recetas para tu Thermomix'}};
+S.recipes.forEach(r=>{r.method=r.method||'mano'});
+let GONE=[];try{GONE=JSON.parse(localStorage.getItem('recetario:quitadas'))||[]}catch(e){}
+const R=(method,id,title,emoji,cat,time,serv,desc,ings,steps)=>({method,id,title,emoji,cat,time,serv,desc,ings,steps,top:true,fav:false});
+const BEST=[
+R('mano','t1','Paella de pollo y verduras','🥘','Platos principales',60,4,'El arroz de domingo, con socarrat y todo.',['400 g arroz bomba','500 g pollo troceado','200 g judías verdes','2 tomates rallados','1,2 l caldo de pollo','1 pizca de azafrán','4 cucharadas de aceite de oliva','Sal'],['Dora el pollo con sal en la paellera y reserva.','Sofríe las judías y añade el tomate rallado hasta que se reduzca.','Añade el arroz, el azafrán y el caldo caliente. Cuece 10 minutos a fuego fuerte.','Baja el fuego y cuece 8 minutos más. Sube el fuego 1 minuto para el socarrat y deja reposar 5 minutos.']),
+R('mano','t2','Croquetas de jamón','🧆','Entrantes',90,6,'Cremosas por dentro y crujientes por fuera.',['80 g mantequilla','80 g harina','800 ml leche entera','150 g jamón picado','1 huevo','100 g pan rallado','Nuez moscada y sal'],['Derrite la mantequilla, añade el jamón y la harina y tuesta 2 minutos.','Vierte la leche templada poco a poco removiendo hasta lograr una bechamel espesa. Cuece 10 minutos.','Extiende en una fuente y enfría 4 horas en la nevera.','Forma las croquetas, pásalas por huevo y pan rallado y fríelas en aceite bien caliente.']),
+R('mano','t5','Flan de huevo','🍮','Postres',60,6,'Casero y cremoso, con caramelo.',['6 huevos','500 ml leche entera','120 g azúcar','100 g azúcar para el caramelo','1 cucharadita de vainilla'],['Haz un caramelo con el azúcar del caramelo y cubre el fondo del molde.','Bate los huevos con el azúcar y la vainilla, añade la leche y cuela la mezcla.','Vierte en el molde y cuece al baño maría en el horno a 160 °C durante 45 minutos.','Enfría y deja en la nevera al menos 4 horas antes de desmoldar.']),
+R('olla','o1','Lentejas estofadas','🫘','Sopas y cremas',45,4,'Plato de cuchara con chorizo para los días fríos.',['300 g lentejas','1 chorizo','1 cebolla','1 zanahoria','2 dientes de ajo','1 hoja de laurel','1 cucharadita de pimentón dulce','1 l agua','Sal'],['Sofríe la cebolla, la zanahoria y el ajo en la olla con el programa de sofrito.','Añade el pimentón, las lentejas, el chorizo, el laurel y el agua.','Cierra la tapa y programa la cocción de legumbres unos 25 minutos, ajustando al manual de tu modelo.','Deja que baje la presión, rectifica de sal y sirve.']),
+R('olla','o2','Arroz con pollo','🍗','Platos principales',40,4,'Un arroz meloso sin vigilar los fogones.',['300 g arroz','500 g pollo troceado','1 cebolla','1 pimiento rojo','1 tomate','700 ml caldo de pollo','1 pizca de azafrán','3 cucharadas de aceite de oliva','Sal'],['Dora el pollo con sal en la olla abierta y reserva.','Sofríe la cebolla, el pimiento y el tomate. Vuelve a poner el pollo.','Añade el arroz, el azafrán y el caldo caliente. Cierra la tapa y usa el programa de arroz unos 12 minutos.','Deja reposar 5 minutos antes de abrir y servir.']),
+R('olla','o3','Crema de calabaza','🎃','Sopas y cremas',35,4,'Suave y dulce, sin ensuciar mil cacharros.',['800 g calabaza','2 puerros','1 patata','700 ml caldo de verduras','2 cucharadas de aceite de oliva','100 ml nata para cocinar','Sal y pimienta'],['Pocha los puerros en aceite 5 minutos con la olla abierta.','Añade la calabaza y la patata en trozos y el caldo. Cierra y cuece 10 minutos.','Tritura con la nata y ajusta de sal y pimienta.']),
+R('thermo','x1','Hummus de garbanzos','🥙','Entrantes',10,4,'Listo en un par de minutos.',['400 g garbanzos cocidos','2 cucharadas de tahini','1 limón (zumo)','1 diente de ajo','3 cucharadas de aceite de oliva','Sal y comino'],['Pon el ajo en el vaso: 5 seg/vel 7.','Añade los garbanzos, el tahini, el zumo, el aceite, la sal y el comino: 30 seg/vel 7.','Si hace falta, añade un poco del líquido de los garbanzos y mezcla 20 seg/vel 5.']),
+R('thermo','x2','Crema de calabaza','🎃','Sopas y cremas',35,4,'Una crema fina sin mover una cuchara.',['800 g calabaza','1 puerro','1 cebolla','1 patata','600 ml caldo de verduras','30 g aceite de oliva','100 g nata para cocinar','Sal y pimienta'],['Pica la cebolla y el puerro: 5 seg/vel 5.','Añade el aceite y sofríe: 5 minutos/120 °C/vel 1.','Añade la calabaza y la patata en trozos, el caldo y la sal: 20 minutos/100 °C/vel 1.','Tritura 1 minuto subiendo de vel 5 a 10. Añade la nata y mezcla 10 seg/vel 3.']),
+R('thermo','x3','Bizcocho de yogur','🍰','Postres',55,8,'El bizcocho de siempre en cuatro pasos.',['125 g yogur natural','3 huevos','120 g azúcar','60 ml aceite de girasol','180 g harina','1 sobre de levadura química','Ralladura de limón'],['Pon los huevos y el azúcar en el vaso: 3 minutos/vel 4.','Añade el yogur, el aceite y la ralladura: 20 seg/vel 4.','Añade la harina y la levadura: 20 seg/vel 5.','Vierte en un molde engrasado y hornea a 180 °C unos 35 minutos.'])
+,
+R('mano','t3','Merluza en salsa verde','🐟','Platos principales',25,4,'Un clásico ligero y lleno de sabor.',['4 lomos de merluza','4 dientes de ajo','1 cucharada de harina','200 ml caldo de pescado','100 ml vino blanco','1 manojo de perejil','4 cucharadas de aceite de oliva','Sal'],['Sofríe el ajo laminado en aceite sin que se queme, añade la harina y el vino.','Incorpora el caldo y el perejil picado y cuece 5 minutos.','Sala la merluza, ponla en la cazuela y cuece 4 minutos por cada lado moviendo la cazuela.']),
+R('mano','t4','Ensaladilla rusa','🥗','Entrantes',40,4,'Fresca y cremosa, ideal para compartir.',['4 patatas','3 zanahorias','150 g guisantes','3 huevos cocidos','2 latas de atún','200 g mayonesa','Sal'],['Cuece las patatas, las zanahorias y los guisantes durante 20 minutos y déjalos enfriar.','Corta todo en dados y mezcla con el atún y los huevos picados.','Añade la mayonesa, ajusta de sal y enfría 1 hora.']),
+R('mano','t6','Pollo al ajillo','🍗','Platos principales',45,4,'Dorado, jugoso y con mucho ajo.',['800 g pollo troceado','10 dientes de ajo','100 ml vino blanco','100 ml aceite de oliva','1 guindilla','Perejil y sal'],['Sazona el pollo y dóralo en aceite caliente.','Añade los ajos con piel y la guindilla.','Vierte el vino y cuece tapado 25 minutos a fuego medio-bajo.','Termina con perejil picado.']),
+R('mano','t7','Tarta de queso al horno','🍰','Postres',60,8,'Cremosa por dentro y tostada por fuera.',['600 g queso crema','200 g nata para montar','200 g azúcar','5 huevos','1 cucharada de harina','1 cucharadita de vainilla'],['Mezcla todos los ingredientes con la batidora hasta obtener una crema lisa.','Vierte en un molde forrado con papel de horno.','Hornea a 200 °C durante 40 minutos, hasta que esté dorada y tiemble ligeramente.','Enfría y reposa en la nevera 6 horas.']),
+R('mano','t8','Sopa de ajo','🍲','Sopas y cremas',30,4,'Humilde y reconfortante, con huevo escalfado.',['6 dientes de ajo','4 rebanadas de pan duro','1 l caldo de pollo','1 cucharadita de pimentón','4 huevos','4 cucharadas de aceite de oliva','Sal'],['Dora los ajos laminados y el pan en aceite.','Añade el pimentón y el caldo y cuece 15 minutos.','Escalfa los huevos en la sopa 3 minutos y sirve caliente.']),
+R('mano','t9','Tortitas americanas','🥞','Desayunos',20,4,'Esponjosas, para un desayuno de domingo.',['200 g harina','2 cucharaditas de levadura química','1 cucharada de azúcar','250 ml leche','1 huevo','30 g mantequilla derretida','Una pizca de sal'],['Mezcla los ingredientes secos.','Añade la leche, el huevo y la mantequilla y remueve sin batir en exceso.','Cocina un cacito de masa en una sartén antiadherente 2 minutos por cada lado.','Sirve con fruta, miel o sirope.']),
+R('olla','o4','Estofado de ternera','🥩','Platos principales',60,4,'Carne tierna en una salsa de vino.',['800 g ternera en dados','3 patatas','2 zanahorias','1 cebolla','2 dientes de ajo','200 ml vino tinto','500 ml caldo','1 cucharada de harina','Aceite, sal y laurel'],['Enharina la carne y dórala en la olla abierta con el programa de sofrito.','Añade la cebolla, el ajo, las zanahorias, el vino, el caldo y el laurel.','Cierra la tapa y cuece unos 30 minutos, ajustando al manual de tu modelo.','Abre, añade las patatas troceadas y cuece 10 minutos más.']),
+R('olla','o5','Garbanzos con espinacas','🥬','Sopas y cremas',30,4,'Receta sevillana con majado de comino.',['300 g garbanzos cocidos','300 g espinacas','1 cebolla','3 dientes de ajo','1 cucharadita de comino','1 cucharadita de pimentón','1 rebanada de pan','Aceite y sal'],['Fríe el pan y los ajos y tritúralos con el comino y el pimentón.','Sofríe la cebolla en la olla y añade las espinacas hasta que se reduzcan.','Incorpora los garbanzos, el majado y 200 ml de agua. Cuece 10 minutos.']),
+R('olla','o6','Albóndigas en salsa','🍝','Platos principales',40,4,'Jugosas, en salsa de tomate.',['500 g carne picada mixta','1 huevo','50 g pan rallado','2 dientes de ajo','1 cebolla','400 g tomate triturado','150 ml caldo','Harina, perejil y sal'],['Mezcla la carne con el huevo, el pan, el ajo picado, el perejil y la sal. Forma bolitas y pásalas por harina.','Dóralas en la olla abierta y reserva.','Sofríe la cebolla, añade el tomate y el caldo, devuelve las albóndigas y cuece con la tapa cerrada 12 minutos.']),
+R('olla','o7','Arroz con leche','🍚','Postres',45,6,'Cremoso, con canela y limón.',['150 g arroz redondo','1 l leche entera','100 g azúcar','1 rama de canela','1 trozo de piel de limón','Canela molida'],['Pon el arroz, la leche, la canela en rama y la piel de limón en la olla.','Cuece con la olla abierta a temperatura baja unos 35 minutos, removiendo a menudo, hasta que espese.','Añade el azúcar, remueve y deja enfriar. Sirve con canela molida.']),
+R('olla','o8','Compota de manzana','🍎','Desayunos',20,4,'Perfecta para el desayuno o la merienda.',['1 kg manzanas','50 g azúcar','1 rama de canela','Zumo de 1 limón','100 ml agua'],['Pela las manzanas y córtalas en trozos.','Ponlas en la olla con el agua, el azúcar, la canela y el limón.','Cierra la tapa y cuece unos 8 minutos. Deja bajar la presión, retira la canela y tritura.']),
+R('thermo','x4','Masa de pizza','🍕','Platos principales',90,4,'Masa fina y crujiente para tus pizzas.',['250 ml agua templada','1 cucharadita de azúcar','20 g levadura fresca','500 g harina','40 g aceite de oliva','10 g sal'],['Pon el agua, la levadura y el azúcar: 1 minuto/37 °C/vel 1.','Añade la harina, el aceite y la sal: 15 seg/vel 6 y amasa 2 minutos/vel espiga.','Deja reposar tapada 1 hora, estira y hornea con tus ingredientes a 220 °C unos 12 minutos.']),
+R('thermo','x5','Risotto de setas','🍄','Platos principales',35,4,'Cremoso y sin vigilar el fuego.',['300 g arroz arborio','250 g setas variadas','1 cebolla','30 g aceite de oliva','100 ml vino blanco','700 ml caldo de verduras','50 g parmesano','Sal'],['Pica la cebolla: 5 seg/vel 5. Añade el aceite y sofríe 3 minutos/120 °C/vel 1.','Añade las setas laminadas y sofríe 5 minutos/120 °C/vel 1.','Pon la mariposa, añade el arroz y rehoga 2 minutos/120 °C/vel 1. Añade el vino, el caldo y la sal.','Cuece 14 minutos/100 °C/giro a la izquierda/vel 1. Añade el parmesano y deja reposar 3 minutos.']),
+R('thermo','x6','Gazpacho andaluz','🍅','Sopas y cremas',10,4,'Fresco, fino y listo en un minuto.',['800 g tomates maduros','1 pepino pequeño','1/2 pimiento verde','1 diente de ajo','50 g aceite de oliva','20 g vinagre','Sal'],['Trocea las verduras y ponlas en el vaso con el resto de ingredientes.','Tritura 1 minuto subiendo de vel 5 a 10.','Cuela si quieres una textura fina y enfría 2 horas.']),
+R('thermo','x7','Mousse de chocolate','🍫','Postres',30,4,'Aireada, con solo tres ingredientes principales.',['200 g chocolate negro','150 g nata para montar','3 huevos','1 pizca de sal'],['Pica el chocolate: 10 seg/vel 8. Añade la nata: 3 minutos/70 °C/vel 2.','Deja templar y añade las yemas: 10 seg/vel 3.','Monta las claras a punto de nieve con la sal e incorpóralas con movimientos envolventes.','Reposa en la nevera 3 horas.']),
+R('thermo','x8','Mermelada de fresa','🍓','Desayunos',40,6,'Casera, con poco azúcar.',['500 g fresas limpias','250 g azúcar','1 limón (zumo)'],['Pon todo en el vaso y deja reposar 30 minutos.','Tritura 10 seg/vel 5 si prefieres pocos trozos.','Cuece 25 minutos/100 °C/vel 1 con el cestillo en lugar del cubilete. Envasa en tarros calientes y cierra.']),
+R('thermo','x9','Pesto de albahaca','🌿','Entrantes',5,4,'Para pasta, tostadas o bocadillos.',['50 g albahaca fresca','40 g piñones','40 g parmesano','1 diente de ajo','100 g aceite de oliva','Sal'],['Pon el parmesano en el vaso: 10 seg/vel 10 y reserva.','Añade los piñones y el ajo: 5 seg/vel 7.','Añade la albahaca, el aceite y la sal: 20 seg/vel 6. Mezcla el parmesano 10 seg/vel 3.'])
+,
+...[
+['mano','n01','Huevos rotos con jamón','🍳','Entrantes',15,2,['4 patatas','4 huevos','100 g jamón serrano','Aceite de oliva y sal'],['Fríe las patatas en rodajas en aceite hasta que estén tiernas.','Fríe los huevos aparte.','Pon los huevos sobre las patatas, rómpelos y añade el jamón.']],
+['mano','n02','Salmorejo cordobés','🍅','Sopas y cremas',15,4,['1 kg tomates maduros','200 g pan del día anterior','1 diente de ajo','100 ml aceite de oliva','1 cucharada de vinagre','Sal'],['Tritura los tomates con el ajo y cuela.','Añade el pan remojado, el vinagre y la sal y vuelve a triturar.','Incorpora el aceite poco a poco. Enfría 2 horas y decora con huevo cocido y jamón.']],
+['mano','n03','Lasaña de carne','🍝','Platos principales',90,6,['12 láminas de lasaña','500 g carne picada','400 g tomate triturado','1 cebolla','500 ml bechamel','150 g queso rallado','Aceite y sal'],['Sofríe la cebolla, añade la carne y el tomate y cuece 15 minutos.','Monta capas de pasta, carne y bechamel en una fuente.','Cubre con queso y hornea a 190 °C durante 30 minutos.']],
+['mano','n04','Pimientos rellenos de carne','🫑','Platos principales',70,4,['4 pimientos rojos','300 g carne picada','1 cebolla','200 g tomate triturado','50 g arroz cocido','Aceite y sal'],['Sofríe la cebolla con la carne, añade el arroz y salpimienta.','Rellena los pimientos y colócalos en una fuente.','Cubre con el tomate y hornea a 180 °C durante 40 minutos.']],
+['mano','n05','Berenjenas con miel','🍆','Entrantes',20,4,['2 berenjenas','100 g harina','4 cucharadas de miel','Aceite para freír','Sal'],['Corta las berenjenas en bastones y sálalas 10 minutos.','Pásalas por harina y fríelas hasta que estén doradas.','Sírvelas con un chorrito de miel.']],
+['mano','n06','Natillas caseras','🍮','Postres',30,4,['500 ml leche','4 yemas','80 g azúcar','1 cucharada de maicena','1 rama de canela','Galletas María'],['Calienta la leche con la canela.','Bate las yemas con el azúcar y la maicena y añade la leche poco a poco.','Cuece a fuego suave 5 minutos sin dejar de remover, reparte en cuencos y enfría con una galleta encima.']],
+['mano','n07','Revuelto de ajetes y gambas','🍤','Platos principales',15,2,['6 huevos','200 g gambas peladas','1 manojo de ajetes','Aceite y sal'],['Saltea los ajetes troceados 3 minutos.','Añade las gambas y saltea 2 minutos.','Vierte los huevos batidos y remueve a fuego suave hasta que cuajen.']],
+['mano','n08','Porridge de avena con fruta','🥣','Desayunos',10,1,['50 g copos de avena','250 ml leche','1 plátano','1 cucharada de miel','Canela'],['Cuece la avena con la leche 5 minutos removiendo.','Añade la miel y la canela.','Sirve con el plátano en rodajas.']],
+['olla','n09','Judías blancas con chorizo','🫘','Platos principales',40,4,['400 g judías blancas cocidas','1 chorizo','1 cebolla','1 pimiento verde','2 dientes de ajo','1 cucharadita de pimentón','500 ml caldo','Aceite y sal'],['Sofríe la cebolla, el pimiento y el ajo en la olla abierta.','Añade el pimentón, el chorizo, las judías y el caldo.','Cierra la tapa y cuece 15 minutos. Deja bajar la presión antes de abrir.']],
+['olla','n10','Pollo al curry','🍛','Platos principales',35,4,['600 g pechuga de pollo','1 cebolla','2 cucharaditas de curry','200 ml leche de coco','200 ml caldo','Aceite y sal'],['Dora el pollo troceado en la olla abierta y reserva.','Sofríe la cebolla, añade el curry, el caldo y el coco y vuelve a poner el pollo.','Cierra la tapa y cuece 10 minutos.']],
+['olla','n11','Sopa de verduras','🥕','Sopas y cremas',30,4,['2 zanahorias','2 patatas','1 puerro','100 g judías verdes','1 l agua','Aceite y sal'],['Trocea las verduras y ponlas en la olla con el agua y la sal.','Cierra y cuece 10 minutos.','Deja bajar la presión y sirve con un hilo de aceite.']],
+['olla','n12','Carrilleras en salsa','🥩','Platos principales',75,4,['4 carrilleras de cerdo','1 cebolla','2 zanahorias','200 ml vino tinto','300 ml caldo','Aceite, sal y laurel'],['Dora las carrilleras en la olla abierta y reserva.','Sofríe las verduras, añade el vino, el caldo y el laurel y vuelve a poner la carne.','Cierra la tapa y cuece 35 minutos. Tritura la salsa si quieres.']],
+['olla','n13','Macarrones con tomate','🍝','Platos principales',25,4,['300 g macarrones','400 g tomate triturado','1 cebolla','500 ml agua','1 cucharadita de azúcar','Aceite y sal'],['Sofríe la cebolla en la olla abierta y añade el tomate y el azúcar.','Incorpora la pasta, el agua y la sal.','Cierra la tapa y cuece 5 minutos. Deja bajar la presión y remueve.']],
+['olla','n14','Pudin de pan','🍞','Postres',60,6,['300 g pan duro','500 ml leche','3 huevos','100 g azúcar','Caramelo líquido'],['Remoja el pan en la leche y tritúralo con los huevos y el azúcar.','Vierte en un molde con caramelo y tápalo con papel de aluminio.','Cuécelo al vapor en la olla, con agua y rejilla, durante 25 minutos con la tapa cerrada.']],
+['olla','n15','Crema de puerros','🥣','Sopas y cremas',30,4,['4 puerros','2 patatas','700 ml caldo','1 cucharada de aceite','100 ml nata','Sal y pimienta'],['Pocha los puerros en aceite 5 minutos con la olla abierta.','Añade las patatas troceadas y el caldo. Cierra y cuece 10 minutos.','Tritura con la nata y ajusta de sal y pimienta.']],
+['olla','n16','Bacalao con tomate','🐟','Platos principales',35,4,['4 lomos de bacalao desalado','400 g tomate triturado','1 cebolla','1 pimiento rojo','Aceite y sal'],['Sofríe la cebolla y el pimiento en la olla abierta y añade el tomate.','Pon el bacalao encima. Cierra la tapa y cuece 6 minutos.','Deja bajar la presión y sirve con la salsa.']],
+['thermo','n17','Salsa de tomate casera','🍅','Entrantes',30,4,['800 g tomate maduro','1 cebolla','1 diente de ajo','40 g aceite de oliva','1 cucharadita de azúcar','Sal'],['Pica la cebolla y el ajo: 5 seg/vel 5. Añade el aceite y sofríe 5 minutos/120 °C/vel 1.','Añade el tomate, el azúcar y la sal: 10 seg/vel 5.','Cuece 25 minutos/100 °C/vel 1 con el cestillo en lugar del cubilete.']],
+['thermo','n18','Bechamel','🥛','Entrantes',10,4,['50 g mantequilla','50 g harina','500 g leche','Sal y nuez moscada'],['Pon todo en el vaso: 7 minutos/90 °C/vel 4.','Rectifica de sal y mezcla 10 seg/vel 4 si hace falta.']],
+['thermo','n19','Crema de champiñones','🍄','Sopas y cremas',30,4,['400 g champiñones','1 cebolla','30 g aceite','600 g caldo','100 g nata','Sal y pimienta'],['Pica la cebolla: 5 seg/vel 5. Añade el aceite y sofríe 4 minutos/120 °C/vel 1.','Añade los champiñones laminados, el caldo y la sal: 15 minutos/100 °C/vel 1.','Tritura 1 minuto subiendo de vel 5 a 10 y mezcla la nata 10 seg/vel 3.']],
+['thermo','n20','Pollo al Varoma con verduras','🍗','Platos principales',40,4,['500 g pechuga de pollo','2 zanahorias','1 calabacín','800 g agua','Sal y especias'],['Pon el agua y la sal en el vaso.','Coloca las verduras en el Varoma y el pollo en la bandeja superior.','Cuece 30 minutos/Varoma/vel 1.']],
+['thermo','n21','Natillas','🍮','Postres',15,4,['500 g leche','4 yemas','80 g azúcar','30 g maicena','1 rama de canela'],['Pon todo en el vaso con la mariposa: 10 minutos/90 °C/vel 3.','Reparte en cuencos y enfría 2 horas.']],
+['thermo','n22','Pan casero','🍞','Desayunos',150,8,['500 g harina de fuerza','300 g agua','10 g sal','10 g levadura fresca','20 g aceite de oliva'],['Pon el agua, la levadura y el aceite: 30 seg/37 °C/vel 2.','Añade la harina y la sal: 15 seg/vel 6 y amasa 3 minutos/vel espiga.','Deja subir 1 hora, forma el pan y hornea 35 minutos a 200 °C.']],
+['thermo','n23','Hamburguesas caseras','🍔','Platos principales',30,4,['500 g carne picada','1 cebolla','1 huevo','30 g pan rallado','Sal y pimienta'],['Pica la cebolla: 3 seg/vel 5.','Añade la carne, el huevo, el pan y la sal: 20 seg/vel 3.','Forma las hamburguesas y cocínalas a la plancha 4 minutos por lado.']],
+['thermo','n24','Crema de zanahoria','🥕','Sopas y cremas',30,4,['600 g zanahorias','1 cebolla','1 patata','30 g aceite','700 g agua','Sal y comino'],['Pica la cebolla: 5 seg/vel 5. Añade el aceite y sofríe 4 minutos/120 °C/vel 1.','Añade las zanahorias y la patata en trozos, el agua y la sal: 20 minutos/100 °C/vel 1.','Tritura 1 minuto subiendo de vel 5 a 10.']]
+].map(([m,id,t,e,c,tm,s,i,st])=>R(m,id,t,e,c,tm,s,'',i,st))
+].map(r=>r);
+{const have=new Set(S.recipes.map(r=>r.id));const add=BEST.filter(r=>!have.has(r.id)&&!GONE.includes(r.id));if(add.length){S.recipes=[...S.recipes,...add];save()}}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=s=>document.querySelector(s);
+const cover=r=>`<div class="cover" ${r.photo?`style="background-image:url(${r.photo})"`:''}>${r.photo?'':esc(r.emoji||'🍽️')}</div>`;
+function scaleLine(t,m){
+  return t.replace(/^(\d+\/\d+|\d+(?:[.,]\d+)?)/,(n)=>{
+    let v=n.includes('/')?n.split('/')[0]/n.split('/')[1]:parseFloat(n.replace(',','.'));
+    v=Math.round(v*m*100)/100;return String(v).replace('.',',');});
+}
+function render(){
+  const a=$('#app');
+  if(S.view==='home')a.innerHTML=homeHTML();
+  else if(S.view==='list')a.innerHTML=listHTML();
+  else if(S.view==='detail')a.innerHTML=detailHTML();
+  else if(S.view==='cook')a.innerHTML=cookHTML();
+  else if(S.view==='shop')a.innerHTML=shopHTML();
+  else a.innerHTML=formHTML();
+  bind();
+}
+function listHTML(){
+  const q=S.q.toLowerCase();
+  const rs=S.recipes.filter(r=>r.method===S.m&&(S.cat==='Todas'||r.cat===S.cat)&&(!S.fav||r.fav)&&(!S.top||r.top)&&(!q||(r.title+' '+r.ings.join(' ')).toLowerCase().includes(q)));
+  return `<header><button class="btn ghost" data-a="home">‹ Menú</button><h1>${METHODS[S.m].e} ${METHODS[S.m].n}</h1>
+  <input class="search" id="q" type="search" placeholder="Busca por nombre o ingrediente" value="${esc(S.q)}" aria-label="Buscar recetas">
+  <button class="btn ghost" data-a="shop">Lista de la compra${S.list.filter(x=>!x.done).length?` (${S.list.filter(x=>!x.done).length})`:''}</button><button class="btn" data-a="new">Nueva receta</button></header>
+  <div class="chips">${['Todas',...CATS].map(c=>`<button class="chip" aria-pressed="${S.cat===c}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
+  <button class="chip" aria-pressed="${S.top}" data-a="top">Selección</button><button class="chip" aria-pressed="${S.fav}" data-a="fav">Favoritas</button></div>
+  ${rs.length?`<div class="grid">${rs.map(r=>`<button class="card" data-open="${r.id}">${cover(r).replace('</div>',`<span class="heart" aria-hidden="true">${r.fav?'❤️':'🤍'}</span></div>`)}
+  <div class="b"><h3>${esc(r.title)}</h3><div class="meta">${r.time} min · ${r.serv} raciones</div></div></button>`).join('')}</div>`
+  :`<div class="empty"><h2>No hay recetas aquí</h2><p>Cambia el filtro o añade tu primera receta.</p></div>`}`;
+}
+function detailHTML(){
+  const r=S.recipes.find(x=>x.id===S.id);if(!r){S.view='list';return listHTML()}
+  const m=(S.mult??r.serv)/r.serv;const n=S.mult??r.serv;
+  return `<button class="btn ghost back" data-a="back">‹ Recetas</button>
+  <div class="detail"><div>${cover(r)}</div><div>
+  <div class="meta">${METHODS[r.method].n} · ${esc(r.cat)}</div><h2>${esc(r.title)}</h2><p>${esc(r.desc)}</p>
+  <div class="bar"><span class="meta">${r.time} min</span>
+  <div class="serv"><button data-a="minus" aria-label="Menos raciones">−</button><span>${n} raciones</span><button data-a="plus" aria-label="Más raciones">+</button></div>
+  <button class="btn" data-a="cook">Modo cocina</button><button class="btn ghost" data-a="addshop">Añadir a la compra</button><label class="btn ghost" style="cursor:pointer">${r.photo?'Cambiar foto':'Añadir foto'}<input type="file" accept="image/*" id="ph" hidden></label><button class="btn ghost" data-a="togfav">${r.fav?'Quitar de favoritas':'Guardar en favoritas'}</button></div></div></div>
+  <div class="detail" style="margin-top:12px"><div><h3 class="s">Ingredientes</h3>
+  <ul class="ing">${r.ings.map((t,i)=>`<li><label><input type="checkbox" data-ck="${r.id}-${i}" ${S.checked[r.id+'-'+i]?'checked':''}><span>${esc(scaleLine(t,m))}</span></label></li>`).join('')}</ul></div>
+  <div><h3 class="s">Preparación</h3><ol class="steps">${r.steps.map(t=>`<li><div>${esc(t)}</div></li>`).join('')}</ol>
+  <div class="actions"><button class="btn ghost" data-a="edit">Editar</button><button class="btn ghost" data-a="print">Imprimir</button><button class="btn ghost danger" data-a="del">Borrar</button></div></div></div>`;
+}
+function formHTML(){
+  const r=S.recipes.find(x=>x.id===S.id)||{title:'',desc:'',emoji:'🍽️',cat:CATS[1],time:30,serv:4,ings:[],steps:[],method:S.m};
+  return `<button class="btn ghost back" data-a="back">‹ Cancelar</button>
+  <h2>${S.id?'Editar receta':'Nueva receta'}</h2>
+  <form id="f"><label class="f" for="t">Nombre</label><input class="in" id="t" required value="${esc(r.title)}">
+  <label class="f" for="d">Descripción</label><input class="in" id="d" value="${esc(r.desc)}">
+  <label class="f" for="mt">Tipo de preparación</label><select class="in" id="mt">${Object.entries(METHODS).map(([k,v])=>`<option value="${k}" ${k===r.method?'selected':''}>${v.n}</option>`).join('')}</select>
+  <div class="row"><div><label class="f" for="c">Categoría</label><select class="in" id="c">${CATS.map(c=>`<option ${c===r.cat?'selected':''}>${c}</option>`).join('')}</select></div>
+  <div><label class="f" for="m">Minutos</label><input class="in" id="m" type="number" min="1" value="${r.time}"></div>
+  <div><label class="f" for="s">Raciones</label><input class="in" id="s" type="number" min="1" value="${r.serv}"></div></div>
+  <label class="f" for="p">Foto</label><input id="p" type="file" accept="image/*"><p class="hint">Si no subes foto, se usará un emoji: <input class="in" id="e" maxlength="4" style="width:80px;display:inline-block" value="${esc(r.emoji)}"></p>
+  <label class="f" for="i">Ingredientes</label><textarea class="in" id="i">${esc(r.ings.join('\n'))}</textarea><p class="hint">Uno por línea. Empieza por la cantidad (por ejemplo, “2 huevos”) y se ajustará al cambiar las raciones.</p>
+  <label class="f" for="st">Pasos</label><textarea class="in" id="st">${esc(r.steps.join('\n'))}</textarea><p class="hint">Un paso por línea.</p>
+  <div class="actions"><button class="btn" type="submit">Guardar receta</button></div></form>`;
+}
+const T={end:0,iv:null,done:false,ctx:null};
+const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+const left=()=>Math.max(0,Math.ceil((T.end-Date.now())/1000));
+function beep(){try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{const c=T.ctx,o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.25;o.start();o.stop(c.currentTime+.9)}catch(e){}}
+function tick(){const l=left(),el=$('#tmr');if(T.iv&&l<=0){clearInterval(T.iv);T.iv=null;T.done=true;beep()}if(el)el.textContent=T.iv?fmt(l):(T.done?'¡Listo!':'Sin temporizador')}
+function startTimer(s){stopTimer();try{T.ctx=T.ctx||new(window.AudioContext||window.webkitAudioContext)();T.ctx.resume()}catch(e){}T.end=Date.now()+s*1000;T.done=false;T.iv=setInterval(tick,250);tick()}
+function stopTimer(){clearInterval(T.iv);T.iv=null;T.done=false;tick()}
+let WL=null;
+async function lockScreen(on){try{if(on&&navigator.wakeLock)WL=await navigator.wakeLock.request('screen');else if(WL){await WL.release();WL=null}}catch(e){}}
+function cookHTML(){
+  const r=S.recipes.find(x=>x.id===S.id);if(!r){S.view='list';return listHTML()}
+  const n=r.steps.length,t=r.steps[S.step],m=(S.mult??r.serv)/r.serv;
+  const mt=t.match(/(\d+)(?:\s*-\s*\d+)?\s*(horas?|minutos?|min)\b/i);
+  const sug=mt?Math.round(+mt[1]*(/^h/i.test(mt[2])?60:1)):0;
+  return `<div class="cook"><div class="cbar"><button class="btn ghost" data-a="exit">Salir</button><strong>${esc(r.title)}</strong><span class="meta">Paso ${S.step+1} de ${n}</span></div>
+  <div class="prog"><i style="width:${(S.step+1)/n*100}%"></i></div>
+  <p class="big">${esc(t)}</p>
+  <div class="tbox"><div id="tmr" class="tnum">${T.iv?fmt(left()):T.done?'¡Listo!':'Sin temporizador'}</div>
+  <div class="actions">${sug?`<button class="btn" data-tm="${sug}">Iniciar ${sug} min</button>`:''}${[1,5,10].map(x=>`<button class="btn ghost" data-tm="${x}">${x} min</button>`).join('')}<button class="btn ghost" data-a="tstop">Parar</button></div></div>
+  <div class="nav"><button class="btn ghost" data-a="prev" ${S.step?'':'disabled'}>‹ Anterior</button>${S.step<n-1?'<button class="btn" data-a="next">Siguiente ›</button>':'<button class="btn" data-a="exit">¡Terminado!</button>'}</div>
+  <details class="ci"><summary>Ingredientes</summary><ul>${r.ings.map(i=>`<li>${esc(scaleLine(i,m))}</li>`).join('')}</ul></details></div>`;
+}
+function shopHTML(){
+  const L=S.list,d=L.filter(x=>x.done).length;
+  return `<button class="btn ghost back" data-a="back">‹ Recetas</button><h2>Lista de la compra</h2>
+  <form id="sf" class="addrow"><input class="in" id="si" placeholder="Añade un producto" aria-label="Producto"><button class="btn" type="submit">Añadir</button></form>
+  ${L.length?`<ul class="ing" style="margin-top:18px">${L.map((x,i)=>`<li><label><input type="checkbox" data-sc="${i}" ${x.done?'checked':''}><span>${esc(x.t)}</span></label></li>`).join('')}</ul>${d?`<div class="actions"><button class="btn ghost" data-a="clearDone">Quitar los marcados (${d})</button></div>`:''}`:`<div class="empty"><p>La lista está vacía. Abre una receta y toca “Añadir a la compra”.</p></div>`}`;
+}
+function homeHTML(){
+  const n=k=>S.recipes.filter(r=>r.method===k).length,p=S.list.filter(x=>!x.done).length;
+  return `<div class="hero"><h1>El recetario de Rosa</h1><p>¿Cómo vas a cocinar hoy?</p></div>
+  <div class="menu">${Object.entries(METHODS).map(([k,v])=>`<button class="mcard" data-m="${k}"><div class="e">${v.e}</div><h2>${v.n}</h2><p>${v.d}</p><p style="margin-top:12px">${n(k)} ${n(k)==1?'receta':'recetas'}</p></button>`).join('')}</div>
+  <div class="actions" style="justify-content:center;margin-top:30px"><button class="btn ghost" data-a="shop">Lista de la compra${p?` (${p})`:''}</button></div>`;
+}
+function resize(file){return new Promise(res=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,640/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.7))};im.src=fr.result};fr.readAsDataURL(file)})}
+function bind(){
+  const q=$('#q');if(q)q.oninput=e=>{S.q=e.target.value;const p=e.target.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(p,p)};
+  document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;render()});
+  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{S.id=b.dataset.open;S.mult=null;S.view='detail';scrollTo(0,0);render()});
+  document.querySelectorAll('[data-ck]').forEach(b=>b.onchange=()=>{S.checked[b.dataset.ck]=b.checked});
+  document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>act(b.dataset.a));
+  const ph=$('#ph');if(ph)ph.onchange=async()=>{const f=ph.files[0];if(!f)return;const r=S.recipes.find(x=>x.id===S.id);r.photo=await resize(f);save();render()};
+  document.querySelectorAll('[data-sc]').forEach(b=>b.onchange=()=>{S.list[+b.dataset.sc].done=b.checked;saveList();render()});
+  const sf=$('#sf');if(sf)sf.onsubmit=e=>{e.preventDefault();const v=$('#si').value.trim();if(v){S.list.push({t:v,done:false});saveList();render()}};
+  document.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>startTimer(+b.dataset.tm*60));
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{S.m=b.dataset.m;S.cat='Todas';S.q='';S.fav=false;S.top=false;S.view='list';scrollTo(0,0);render()});
+  const f=$('#f');if(f)f.onsubmit=async e=>{e.preventDefault();
+    const old=S.recipes.find(x=>x.id===S.id);const f0=$('#p').files[0];
+    const r={id:old?.id||'r'+Date.now(),title:$('#t').value.trim(),desc:$('#d').value.trim(),cat:$('#c').value,time:+$('#m').value||0,serv:Math.max(1,+$('#s').value||1),
+      emoji:$('#e').value||'🍽️',photo:f0?await resize(f0):old?.photo,fav:old?.fav||false,top:old?.top,method:$('#mt').value,
+      ings:$('#i').value.split('\n').map(x=>x.trim()).filter(Boolean),steps:$('#st').value.split('\n').map(x=>x.trim()).filter(Boolean)};
+    S.recipes=old?S.recipes.map(x=>x.id===r.id?r:x):[r,...S.recipes];save();S.id=r.id;S.m=r.method;S.mult=null;S.view='detail';render()};
+}
+function act(a){
+  const r=S.recipes.find(x=>x.id===S.id);
+  if(a==='new'){S.id=null;S.view='form'}
+  else if(a==='back'){S.view=S.view==='form'&&S.id?'detail':'list'}
+  else if(a==='fav'){S.fav=!S.fav}
+  else if(a==='top'){S.top=!S.top}
+  else if(a==='home'){S.view='home';S.q=''}
+  else if(a==='edit'){S.view='form'}
+  else if(a==='togfav'){r.fav=!r.fav;save()}
+  else if(a==='plus'){S.mult=(S.mult??r.serv)+1}
+  else if(a==='minus'){S.mult=Math.max(1,(S.mult??r.serv)-1)}
+  else if(a==='print'){print();return}
+  else if(a==='cook'){S.step=0;S.view='cook';lockScreen(true)}
+  else if(a==='next'){S.step=Math.min(r.steps.length-1,S.step+1)}
+  else if(a==='prev'){S.step=Math.max(0,S.step-1)}
+  else if(a==='exit'){stopTimer();lockScreen(false);S.view='detail'}
+  else if(a==='tstop'){stopTimer()}
+  else if(a==='shop'){S.view='shop'}
+  else if(a==='addshop'){const m=(S.mult??r.serv)/r.serv;r.ings.forEach(t=>S.list.push({t:scaleLine(t,m),done:false}));saveList();S.view='shop'}
+  else if(a==='clearDone'){S.list=S.list.filter(x=>!x.done);saveList()}
+  else if(a==='del'){if(confirm('¿Borrar “'+r.title+'”?')){if(r.top){GONE.push(r.id);try{localStorage.setItem('recetario:quitadas',JSON.stringify(GONE))}catch(e){}}S.recipes=S.recipes.filter(x=>x!==r);save();S.view='list'}else return}
+  render();
+}
+render();
+</script>
+</body>
+</html>
