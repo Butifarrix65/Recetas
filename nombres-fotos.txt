@@ -1,0 +1,85 @@
+NOMBRES DE FOTO PARA LA CARPETA img (formato .jpg, todo en minusculas)
+
+
+== A MANO (28) ==
+mano-tortilla-de-patatas.jpg   <- Tortilla de patatas
+mano-pisto-manchego.jpg   <- Pisto manchego
+mano-gazpacho-andaluz.jpg   <- Gazpacho andaluz
+mano-paella-de-pollo-y-verduras.jpg   <- Paella de pollo y verduras
+mano-croquetas-de-jamon.jpg   <- Croquetas de jamón
+mano-flan-de-huevo.jpg   <- Flan de huevo
+mano-merluza-en-salsa-verde.jpg   <- Merluza en salsa verde
+mano-ensaladilla-rusa.jpg   <- Ensaladilla rusa
+mano-pollo-al-ajillo.jpg   <- Pollo al ajillo
+mano-tarta-de-queso-al-horno.jpg   <- Tarta de queso al horno
+mano-sopa-de-ajo.jpg   <- Sopa de ajo
+mano-tortitas-americanas.jpg   <- Tortitas americanas
+mano-huevos-rotos-con-jamon.jpg   <- Huevos rotos con jamón
+mano-salmorejo-cordobes.jpg   <- Salmorejo cordobés
+mano-lasana-de-carne.jpg   <- Lasaña de carne
+mano-pimientos-rellenos-de-carne.jpg   <- Pimientos rellenos de carne
+mano-berenjenas-con-miel.jpg   <- Berenjenas con miel
+mano-natillas-caseras.jpg   <- Natillas caseras
+mano-revuelto-de-ajetes-y-gambas.jpg   <- Revuelto de ajetes y gambas
+mano-porridge-de-avena-con-fruta.jpg   <- Porridge de avena con fruta
+mano-tostada-de-tomate-y-jamon.jpg   <- Tostada de tomate y jamón
+mano-fabada-asturiana.jpg   <- Fabada asturiana
+mano-calamares-a-la-romana.jpg   <- Calamares a la romana
+mano-macarrones-gratinados.jpg   <- Macarrones gratinados
+mano-pollo-asado-con-patatas.jpg   <- Pollo asado con patatas
+mano-crema-de-calabacin-con-queso.jpg   <- Crema de calabacín con queso
+mano-brownie-de-chocolate.jpg   <- Brownie de chocolate
+mano-guacamole.jpg   <- Guacamole
+
+== OLLA GM (24) ==
+olla-lentejas-estofadas.jpg   <- Lentejas estofadas
+olla-arroz-con-pollo.jpg   <- Arroz con pollo
+olla-crema-de-calabaza.jpg   <- Crema de calabaza
+olla-estofado-de-ternera.jpg   <- Estofado de ternera
+olla-garbanzos-con-espinacas.jpg   <- Garbanzos con espinacas
+olla-albondigas-en-salsa.jpg   <- Albóndigas en salsa
+olla-arroz-con-leche.jpg   <- Arroz con leche
+olla-compota-de-manzana.jpg   <- Compota de manzana
+olla-judias-blancas-con-chorizo.jpg   <- Judías blancas con chorizo
+olla-pollo-al-curry.jpg   <- Pollo al curry
+olla-sopa-de-verduras.jpg   <- Sopa de verduras
+olla-carrilleras-en-salsa.jpg   <- Carrilleras en salsa
+olla-macarrones-con-tomate.jpg   <- Macarrones con tomate
+olla-pudin-de-pan.jpg   <- Pudin de pan
+olla-crema-de-puerros.jpg   <- Crema de puerros
+olla-bacalao-con-tomate.jpg   <- Bacalao con tomate
+olla-avena-cremosa-con-manzana.jpg   <- Avena cremosa con manzana
+olla-puchero-de-pollo.jpg   <- Puchero de pollo
+olla-arroz-con-verduras.jpg   <- Arroz con verduras
+olla-rabo-de-toro.jpg   <- Rabo de toro
+olla-alcachofas-con-jamon.jpg   <- Alcachofas con jamón
+olla-peras-al-vino.jpg   <- Peras al vino
+olla-cuscus-con-verduras.jpg   <- Cuscús con verduras
+olla-sopa-de-pollo-con-fideos.jpg   <- Sopa de pollo con fideos
+
+== THERMOMIX (25) ==
+thermo-hummus-de-garbanzos.jpg   <- Hummus de garbanzos
+thermo-crema-de-calabaza.jpg   <- Crema de calabaza
+thermo-bizcocho-de-yogur.jpg   <- Bizcocho de yogur
+thermo-masa-de-pizza.jpg   <- Masa de pizza
+thermo-risotto-de-setas.jpg   <- Risotto de setas
+thermo-gazpacho-andaluz.jpg   <- Gazpacho andaluz
+thermo-mousse-de-chocolate.jpg   <- Mousse de chocolate
+thermo-mermelada-de-fresa.jpg   <- Mermelada de fresa
+thermo-pesto-de-albahaca.jpg   <- Pesto de albahaca
+thermo-salsa-de-tomate-casera.jpg   <- Salsa de tomate casera
+thermo-bechamel.jpg   <- Bechamel
+thermo-crema-de-champinones.jpg   <- Crema de champiñones
+thermo-pollo-al-varoma-con-verduras.jpg   <- Pollo al Varoma con verduras
+thermo-natillas.jpg   <- Natillas
+thermo-pan-casero.jpg   <- Pan casero
+thermo-hamburguesas-caseras.jpg   <- Hamburguesas caseras
+thermo-crema-de-zanahoria.jpg   <- Crema de zanahoria
+thermo-tortitas-rapidas.jpg   <- Tortitas rápidas
+thermo-lentejas-con-verduras.jpg   <- Lentejas con verduras
+thermo-salsa-bolonesa.jpg   <- Salsa boloñesa
+thermo-arroz-con-leche.jpg   <- Arroz con leche
+thermo-alioli-casero.jpg   <- Alioli casero
+thermo-salmon-al-varoma-con-patatas.jpg   <- Salmón al Varoma con patatas
+thermo-crema-de-guisantes.jpg   <- Crema de guisantes
+thermo-magdalenas.jpg   <- Magdalenas
